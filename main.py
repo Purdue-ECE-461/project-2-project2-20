@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "Hello World! - From Team 20 "
+    return "Hello World! - From Team 20 (CICD workflow set)"
 
 
 if __name__ == "__main__":

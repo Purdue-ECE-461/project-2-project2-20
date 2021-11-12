@@ -19,10 +19,16 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
           service_account_email: "project2-20@appspot.gserviceaccount.com"
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-      - name: Check variables
-        run: echo ${{ secrets.GCP_PROJECT_ID }}
+     
 
       - name: Build project
         run: |-
           gcloud builds submit \
            --tag gcr.io/project2-20/cd-pipeline
+
+      - name: Deploy project
+        run: |-
+          gcloud run deploy \
+           --image gcr.io/project2-20/cd-pipeline \
+            --platform managed --region us-central1 \
+            --project=project2-20 --allow-unauthenticated
