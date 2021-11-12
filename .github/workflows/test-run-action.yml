@@ -28,7 +28,7 @@ jobs:
 
       - name: Deploy project
         run: |-
-          gcloud run deploy ${{ secrets.GCP_SA_KEY_JSON }}\
+          gcloud run deploy project2-20\
            --image gcr.io/project2-20/cd-pipeline \
             --platform managed --region us-central1 \
             --project=project2-20 --allow-unauthenticated
