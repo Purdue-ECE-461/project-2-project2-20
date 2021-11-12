@@ -1,9 +1,6 @@
 name: GitHub cicd
 on: [push]
 
-env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  APP_ID: cd-pipeline
 
 jobs:
   test-cicd-gcp:
@@ -23,9 +20,9 @@ jobs:
           service_account_email: "project2-20@appspot.gserviceaccount.com"
           project_id: ${{ secrets.GCP_PROJECT_ID }}
       - name: Check variables
-        run: echo $PROJECT_ID
+        run: echo ${{ secrets.GCP_PROJECT_ID }}
 
-      # - name: Build project
-      #   run: |-
-      #     gcloud builds submit \
-      #      --tag gcr.io/project2-20/$APP_ID
+      - name: Build project
+        run: |-
+          gcloud builds submit \
+           --tag gcr.io/project2-20/cd-pipeline
