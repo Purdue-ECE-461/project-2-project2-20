@@ -1,5 +1,10 @@
 name: GitHub cicd
 on: [push]
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  APP_ID: cd-pipeline
+
 jobs:
   test-cicd-gcp:
     name: cicd test
@@ -17,3 +22,9 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
           service_account_email: "project2-20@appspot.gserviceaccount.com"
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+        run: echo $PROJECT_ID
+
+      # - name: Build project
+      #   run: |-
+      #     gcloud builds submit \
+      #      --tag gcr.io/project2-20/$APP_ID
