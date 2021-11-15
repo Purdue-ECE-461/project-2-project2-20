@@ -17,6 +17,8 @@ def hello_world():
     with open(path, 'r') as f:
         data = f.read()
 
+    data = str(data)
+
 
     return data
 
