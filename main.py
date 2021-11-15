@@ -18,9 +18,9 @@ def hello_world():
         data = f.read()
 
     data = str(data)
+    teststring = str('Hello World!!!')
 
-
-    return data
+    return teststring
 
 
 if __name__ == "__main__":
