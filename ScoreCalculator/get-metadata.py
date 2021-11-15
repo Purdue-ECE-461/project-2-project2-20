@@ -160,6 +160,7 @@ def main():
     urls = url_parser(filename)
     # api_urls = api_url_generator(urls)
     # i = 0
+    sys.stdout = open('output.txt', 'w')
     for url in urls:
         backup_url = url
         # print(url)
@@ -168,11 +169,12 @@ def main():
         returnedurl,net_score,ramp_up_score,correctness_score,bus_factor_score,responsive_maintainer_score,license_score = scoring(backup_url, metadata_dict)
         scores = [ramp_up_score,correctness_score,bus_factor_score,responsive_maintainer_score,license_score]
         ingestible = all(i>=0.5 for i in scores)
-        scoreprint = " " + str(returnedurl) + str(net_score) + str(ramp_up_score) + str(correctness_score) + str(bus_factor_score) + str(responsive_maintainer_score) + str(license_score)
+        scoreprint = " " + str(returnedurl) + " " + str(net_score) + " " + str(ramp_up_score) + " " + str(correctness_score) + " " + str(bus_factor_score) + " " +  str(responsive_maintainer_score) + " " + str(license_score)
         if ingestible:
             scoreprint = scoreprint + " Ingestible"
         
         print(scoreprint)
+    sys.stdout.close()
 
 
 
