@@ -25,10 +25,19 @@ class PackageByID(generics.RetrieveUpdateDestroyAPIView):
 @csrf_exempt
 @api_view(['DELETE'])
 def reset_registry(request):
-    # reset registry to no packages
+    # reset registry to no packages, single admin user
     if request.method == 'DELETE':
         Package.objects.all().delete()
-        return JsonResponse(status=status.HTTP_200_OK)
+        User.objects.all().delete()
+        try:
+            User.objects.get(username='ece461defaultadminuser') # should never work since we are deleting all users
+        except User.DoesNotExist:
+            u = User(username='ece461defaultadminuser')
+            u.set_password('correcthorsebatterystaple123(!__+@**(A')
+            u.is_superuser = True
+            u.is_staff = True
+            u.save()
+        return Response(status=status.HTTP_200_OK)
 
 
 class UserList(generics.ListCreateAPIView):
