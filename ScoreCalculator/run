@@ -11,7 +11,7 @@ import os.path
 def testFunc():
     print("testing!")
     param = 'tests/test_final.txt'
-    os.system(f'python3 get-metadata.py {param}')
+    os.system(f'python get-metadata.py {param}')
 
 def installFunc():
     print("Installing!")
