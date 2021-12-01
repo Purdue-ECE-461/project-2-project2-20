@@ -19,16 +19,19 @@ class PackageList(generics.ListAPIView):
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
+
 class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     # GET, PUT, DELETE packages by ID
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
+
 class CreatePackage(generics.CreateAPIView):
     # POST package
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
+
 
 @csrf_exempt
 @api_view(['GET'])
@@ -48,13 +51,13 @@ def rate_package(request, pk):
         return Response(data=serialized_data.data)
 
 
-
 class PackageByName(generics.RetrieveDestroyAPIView):
     # GET, DELETE packages by name
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
     lookup_field = 'name'
+
 
 @csrf_exempt
 @api_view(['DELETE'])
