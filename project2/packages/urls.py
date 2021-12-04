@@ -8,6 +8,7 @@ urlpatterns = [
     path('package/<int:pk>/rate', views.rate_package),
     path('package/byName/<str:name>/', views.PackageByName.as_view()),
     path('reset/', views.reset_registry),
+    path('authenticate/', views.authenticate),
     
     # user URLs
     path('users/', views.UserList.as_view()),

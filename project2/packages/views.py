@@ -85,6 +85,9 @@ def reset_registry(request):
             u.save()
         return Response(status=status.HTTP_200_OK)
 
+@api_view(['PUT'])
+def authenticate(request):
+    return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
 
 class UserList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAdminUser]
