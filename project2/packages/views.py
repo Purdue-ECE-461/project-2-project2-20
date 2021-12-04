@@ -1,5 +1,7 @@
 from django.http.response import HttpResponse, JsonResponse
-from rest_framework import status, generics
+from django.http import Http404
+from rest_framework import status, generics, mixins
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -25,6 +27,12 @@ class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
+
+    def perform_update(self, serializer):
+        # PUT only if ingestible package
+        if check_trust(get_rating(serializer.validated_data['url'])):
+            print(serializer.validated_data['url'])
+            serializer.save()
 
 
 class CreatePackage(generics.CreateAPIView):
