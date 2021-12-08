@@ -31,7 +31,7 @@ class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         # PUT only if ingestible package
         if check_trust(get_rating(serializer.validated_data['url'])):
-            print(serializer.validated_data['url'])
+            # print(serializer.validated_data['url'])
             serializer.save()
 
 
@@ -90,12 +90,14 @@ def authenticate(request):
     return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
 
 class UserList(generics.ListCreateAPIView):
+    # GET list of all users
     permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
+    # GET detail of a singular user
     permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer

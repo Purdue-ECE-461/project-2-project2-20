@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class PackageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Package
-        fields = ['id', 'name', 'version', 'url']
+        fields = ['id', 'name', 'version', 'url', 'content']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
