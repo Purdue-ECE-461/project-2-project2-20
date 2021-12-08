@@ -5,8 +5,8 @@ FROM python:3.9-alpine
 LABEL maintainer="project2-20"
 
 COPY ./requirements.txt /requirements.txt
-COPY ./project2 /app
-WORKDIR /app
+COPY ./project2 /project2
+WORKDIR /project2
 
 
 
@@ -16,7 +16,7 @@ WORKDIR /app
 # RUN python -m pip install google
 
 RUN python -m venv /py && \
-    python -m pip install --upgrade pip && \
+    /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /requirements.txt && \
     adduser --disabled-password --no-create-home django-user
 

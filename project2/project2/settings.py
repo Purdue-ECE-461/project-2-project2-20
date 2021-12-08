@@ -40,9 +40,9 @@ MEDIA_URL = 'https://storage.googleapis.com/'+str(GS_BUCKET_NAME)+'/'
 SECRET_KEY = 'django-insecure-s#c&5@y!m*yzri#_y^8+jk&s$ji7^6r721re8g(l2wwck-_0ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', default=0)))
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -148,7 +148,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+STATIC_ROOT = '/static'
 
 
 

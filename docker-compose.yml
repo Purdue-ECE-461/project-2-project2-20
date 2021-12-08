@@ -1,3 +1,4 @@
+
 version: '3.9'
 
 services:
@@ -7,5 +8,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./project2:/app
+      - ./project2:/project2
+      - ./static:/static
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DEBUG=1

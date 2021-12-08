@@ -1,1 +1,10 @@
+Run development server
 docker-compose up --build 
+docker-compose run --rm app sh -c "python manage.py runserver"
+
+
+docker-compose -f docker-compose-deploy.yml run --rm gcloud sh -c "gcloud auth login"
+
+docker-compose run --rm app sh -c "python manage.py collectstatic"
+
+docker-compose -f docker-compose-deploy.yml run --rm gcloud sh -c "gcloud app deploy --project project2-20"
