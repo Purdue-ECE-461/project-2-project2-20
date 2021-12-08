@@ -11,9 +11,26 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+# from google.oauth2.service_account import Credentials
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+#configuration for media file storing and reriving media file from gcloud 
+
+# GS_CREDENTIALS = Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'serviceAccount.json'))
+GS_CREDENTIALS = os.path.join(BASE_DIR, 'serviceAccount.json')
+
+DEFAULT_FILE_STORAGE = 'project2.gcloud.GoogleCloudStorage'
+
+GS_PROJECT_ID = 'project2-20'
+
+GS_BUCKET_NAME = 'proj2-django-bucket'
+MEDIA_ROOT = "media/"
+UPLOAD_ROOT = 'media/uploads/'
+MEDIA_URL = 'https://storage.googleapis.com/'+str(GS_BUCKET_NAME)+'/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -130,3 +147,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
