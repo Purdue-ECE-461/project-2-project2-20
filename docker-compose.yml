@@ -10,6 +10,7 @@ services:
     volumes:
       - ./project2:/project2
       - ./static:/static
+
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DEBUG=1

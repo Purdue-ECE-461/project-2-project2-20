@@ -8,3 +8,10 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 google
+beautifulsoup4
+requests
+bs4
+datetime
+python-dateutil
+PyGithub
+

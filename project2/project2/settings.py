@@ -57,6 +57,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'packages.apps.PackagesConfig',
+    
+    
 ]
 
 MIDDLEWARE = [
