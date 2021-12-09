@@ -17,33 +17,39 @@ from packages.serializers import PackageSerializer, UserSerializer, RatingSerial
 
 class PackageList(generics.ListAPIView):
     # GET package list
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Package.objects.all().filter(owner=user)
 
 
 class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     # GET, PUT, DELETE packages by ID
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
     def perform_update(self, serializer):
         # PUT only if ingestible package
         if check_trust(get_rating(serializer.validated_data['url'])):
-            # print(serializer.validated_data['url'])
             serializer.save()
 
 
 class CreatePackage(generics.CreateAPIView):
     # POST package
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 @csrf_exempt
 @api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
+# @permission_classes([permissions.IsAuthenticated])
 def rate_package(request, pk):
     # GET rating of package with specified ID
     try:
@@ -61,7 +67,7 @@ def rate_package(request, pk):
 
 class PackageByName(generics.RetrieveDestroyAPIView):
     # GET, DELETE packages by name
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
     lookup_field = 'name'
@@ -69,7 +75,7 @@ class PackageByName(generics.RetrieveDestroyAPIView):
 
 @csrf_exempt
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAdminUser])
+# @permission_classes([permissions.IsAdminUser])
 def reset_registry(request):
     # reset registry to no packages, single admin user
     if request.method == 'DELETE':
@@ -91,13 +97,13 @@ def authenticate(request):
 
 class UserList(generics.ListCreateAPIView):
     # GET list of all users
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
     # GET detail of a singular user
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
