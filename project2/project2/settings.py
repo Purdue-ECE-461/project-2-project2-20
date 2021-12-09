@@ -11,9 +11,26 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+# from google.oauth2.service_account import Credentials
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+#configuration for media file storing and reriving media file from gcloud 
+
+# GS_CREDENTIALS = Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'serviceAccount.json'))
+GS_CREDENTIALS = os.path.join(BASE_DIR, 'serviceAccount.json')
+
+DEFAULT_FILE_STORAGE = 'project2.gcloud.GoogleCloudStorage'
+
+GS_PROJECT_ID = 'project2-20'
+
+GS_BUCKET_NAME = 'proj2-django-bucket'
+MEDIA_ROOT = "media/"
+UPLOAD_ROOT = 'media/uploads/'
+MEDIA_URL = 'https://storage.googleapis.com/'+str(GS_BUCKET_NAME)+'/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +40,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s#c&5@y!m*yzri#_y^8+jk&s$ji7^6r721re8g(l2wwck-_0ip'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', default=0)))
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -40,6 +57,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'packages.apps.PackagesConfig',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -132,3 +151,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = '/static'
+
+
+

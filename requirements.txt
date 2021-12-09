@@ -1,0 +1,17 @@
+Django>=3.2,<3.3
+gunicorn>=20.1.0,<20.2
+djangorestframework
+google-cloud-storage
+google-auth
+google-cloud
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+google
+beautifulsoup4
+requests
+bs4
+datetime
+python-dateutil
+PyGithub
+
