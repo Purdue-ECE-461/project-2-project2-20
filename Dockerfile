@@ -8,8 +8,6 @@ COPY ./requirements.txt /requirements.txt
 COPY ./project2 /project2
 WORKDIR /project2
 
-RUN 'echo "WSGIPassAuthorization On" >> /etc/apache2/apache2.conf'
-
 
 # RUN python -m pip install google-cloud-storage
 # RUN python -m pip install django-storages
