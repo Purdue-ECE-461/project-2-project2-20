@@ -21,6 +21,10 @@ class PackageList(generics.ListAPIView):
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Package.objects.all().filter(owner=user)
+
 
 class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     # GET, PUT, DELETE packages by ID
@@ -31,7 +35,6 @@ class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         # PUT only if ingestible package
         if check_trust(get_rating(serializer.validated_data['url'])):
-            print(serializer.validated_data['url'])
             serializer.save()
 
 
@@ -39,6 +42,9 @@ class CreatePackage(generics.CreateAPIView):
     # POST package
     # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 @csrf_exempt
@@ -90,12 +96,14 @@ def authenticate(request):
     return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
 
 class UserList(generics.ListCreateAPIView):
+    # GET list of all users
     # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
+    # GET detail of a singular user
     # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
