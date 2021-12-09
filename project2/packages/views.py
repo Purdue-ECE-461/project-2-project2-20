@@ -17,14 +17,14 @@ from packages.serializers import PackageSerializer, UserSerializer, RatingSerial
 
 class PackageList(generics.ListAPIView):
     # GET package list
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
 
 class PackageByID(generics.RetrieveUpdateDestroyAPIView):
     # GET, PUT, DELETE packages by ID
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
 
@@ -37,13 +37,13 @@ class PackageByID(generics.RetrieveUpdateDestroyAPIView):
 
 class CreatePackage(generics.CreateAPIView):
     # POST package
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
 
 
 @csrf_exempt
 @api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
+# @permission_classes([permissions.IsAuthenticated])
 def rate_package(request, pk):
     # GET rating of package with specified ID
     try:
@@ -61,7 +61,7 @@ def rate_package(request, pk):
 
 class PackageByName(generics.RetrieveDestroyAPIView):
     # GET, DELETE packages by name
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = PackageSerializer
     queryset = Package.objects.all()
     lookup_field = 'name'
@@ -69,7 +69,7 @@ class PackageByName(generics.RetrieveDestroyAPIView):
 
 @csrf_exempt
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAdminUser])
+# @permission_classes([permissions.IsAdminUser])
 def reset_registry(request):
     # reset registry to no packages, single admin user
     if request.method == 'DELETE':
@@ -90,12 +90,12 @@ def authenticate(request):
     return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
 
 class UserList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
