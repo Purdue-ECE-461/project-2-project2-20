@@ -20,7 +20,7 @@ def get_rating(package_url):
     metadata_dict = metadata_collect(package_url)
     # print(metadata_dict)
     returnedurl,net_score,ramp_up_score,correctness_score,bus_factor_score,responsive_maintainer_score,license_score = scoring(backup_url, metadata_dict)
-    ratings = [net_score, ramp_up_score,correctness_score,bus_factor_score,responsive_maintainer_score,license_score]
+    ratings = [bus_factor_score,correctness_score,ramp_up_score,responsive_maintainer_score,license_score, net_score]
 
     # ratings = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
     return ratings
@@ -40,7 +40,7 @@ def metadata_collect(url):
 
     url = url.replace("https://github.com/", "")
 
-    token = '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'
+    token=os.getenv('GITHUB_TOKEN')
 
     g = Github(token)
     reps = g.get_repo(url)
